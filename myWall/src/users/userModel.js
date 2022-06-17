@@ -2,7 +2,8 @@
 const mongoose = require("mongoose");
 
 // destructuring Schema , Model
-const { Schema , Model } = mongoose;
+const Schema = mongoose.Schema;
+const Model = mongoose.model;
 
 const userSchema = new Schema({
 

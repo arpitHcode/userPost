@@ -1,7 +1,8 @@
 // import mongoose
 const mongoose = require ("mongoose");
 
-const { Schema , Model } = mongoose.Schema;
+const  Schema = mongoose.Schema;
+const Model = mongoose.model;
 
 const post = require("../posts/postModel");
 const user = require("../users/userModel");
@@ -20,12 +21,12 @@ const commentSchema = new Schema ({
     },
 
     user : {
-        type: schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref : "user"
     },
 
     post : {
-        type: schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref : "post"
     }
 });

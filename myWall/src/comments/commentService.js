@@ -9,7 +9,7 @@ class CommentService {
 
     }
 
-    async createComment(id, body) {
+    async createComment(body) {
 
         try {
 

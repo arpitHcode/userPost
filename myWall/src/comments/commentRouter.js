@@ -4,7 +4,7 @@ const commentRouter = express.Router();
 const commentController = require('./commentController');
 
 
-commentRouter.post('/:id', commentController.createComments);
+commentRouter.post('/', commentController.createComments);
 commentRouter.get('/', commentController.showAllComments);
 commentRouter.get('/:id', commentController.getCommentById);
 commentRouter.get('/post/:id', commentController.getCommentByPost);
