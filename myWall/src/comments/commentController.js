@@ -1,6 +1,6 @@
 const commentService = require('./commentService');
 
-class commentController {
+class CommentController {
 
     constructor() {
 
@@ -12,28 +12,35 @@ class commentController {
 
         try {
 
-            const id = req.params.id;
+            
             const body = {
 
-                description: req.body.description
+                description: req.body.description,
+                user:req.body.user,
+                post:req.body.post
 
             }
 
-            const result = await commentService.createComment(id, body);
+            const result = await commentService.createComment(body);
             res.status(201).send(result);
         }
         catch (error) {
+
             res.status(404).send(error);
+
         }
     }
 
     async showAllComments(req, res) {
+
         try {
+
             const result = await commentService.showAllComment();
             res.status(201).send(result);
 
         }
         catch (error) {
+
             throw error;
         }
     }
@@ -48,10 +55,43 @@ class commentController {
 
         }
         catch (error) {
+
             res.status(404).send(error);
+
         }
     }
 
+    async getCommentByPost(req,res) {
+
+        try {
+
+            const id = req.params.id;
+            const result = await commentService.getCommentByPost(id);
+            res.status(201).send(result);
+
+        }
+        catch (error) {
+
+            res.status(404).send(error);
+
+        }
+    }
+
+    async getCommentByUser(req,res) {
+
+        try {
+
+            const id = req.params.id;
+            const result = await commentService.getCommentByUser(id);
+            res.status(201).send(result);
+
+        }
+        catch (error) {
+
+            res.status(404).send(error);
+
+        }
+    }
 
     async updateCommentById(req, res) {
         try {
@@ -59,10 +99,12 @@ class commentController {
             const id = req.params.id;
             const commentUpdate = {
 
-                description: req.body.description
+                description: req.body.description,
+                user: req.body.user,
+                post: req.body.post
 
-            }
-            console.log(id)
+                }
+
             const result = await commentService.updateCommentById(id, commentUpdate);
             res.status(201).send(result);
 
@@ -84,4 +126,4 @@ class commentController {
     }
 }
 
-module.exports = new commentController();
+module.exports = new CommentController();

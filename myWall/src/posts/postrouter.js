@@ -7,7 +7,7 @@ const postController= require('./postcontroller');
 postRouter.post('/:id' , postController.createPost);
 postRouter.get('/' , postController.showAllPost);
 postRouter.get('/:id' , postController.getPostById);
-postRouter.get('/comment/:id' ,postController.getCommentById )
+postRouter.get('/user/:id' ,postController.getPostByUser );
 postRouter.put('/:id' , postController.updatePostById);
 postRouter.delete('/:id' , postController.deletePostById);    
 

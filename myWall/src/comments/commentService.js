@@ -1,49 +1,80 @@
-const commentModel = require('./commentModel');
-const postModel = require('../posts/postModel');
 
-class commentService {
+const commentModel = require('../comments/commentModel');
+
+class CommentService {
 
     constructor() {
+
         console.log("In comment Service");
+
     }
 
     async createComment(id, body) {
+
         try {
 
-            
-
-
-
-            const commentBody = await commentModel.create(body);
-
-            const b = await postModel.findByIdAndUpdate(id, { comment: commentBody._id }, { upsert: true });
-            
-            return commentBody;
+           return await commentModel.create(body);
 
         }
 
 
         catch (error) {
+
             throw error;
+
         }
-    };
+    }
+
     async showAllComment() {
+
         try {
+
             return await commentModel.find();
 
         }
         catch (error) {
+
+            throw error;
+
+        }
+
+    }
+
+    async getCommentById(id) {
+
+        try{
+
+            return await commentModel.findById(id);
+
+        }
+        catch(error){
+
+            throw error;    
+
+        }
+    }
+
+    async getCommentByPost(id) {
+
+        try{
+
+            return await commentModel.find({ post : id});
+        }
+        catch(error){
+
             throw error;
         }
     }
 
-    async getCommentById(id) {
+    async getCommentByUser(id) {
+
         try{
 
-            return await commentModel.findById(id);
+            return await commentModel.find({ user : id});
         }
         catch(error){
-            throw error;    
+
+            throw error;
         }
     }
 
@@ -51,7 +82,9 @@ class commentService {
         try {
             const commentUpdate = {
 
-                description: body.description
+                description: body.description,
+                user:body.user,
+                post:body.post
 
             };
 
@@ -74,4 +107,4 @@ class commentService {
     }
 }
 
-module.exports = new commentService();
+module.exports = new CommentService();

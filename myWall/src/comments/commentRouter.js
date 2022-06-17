@@ -7,6 +7,8 @@ const commentController = require('./commentController');
 commentRouter.post('/:id', commentController.createComments);
 commentRouter.get('/', commentController.showAllComments);
 commentRouter.get('/:id', commentController.getCommentById);
+commentRouter.get('/post/:id', commentController.getCommentByPost);
+commentRouter.get('/user/:id', commentController.getCommentByUser);
 commentRouter.put('/:id', commentController.updateCommentById);
 commentRouter.delete('/:id', commentController.deleteCommentById);
 

@@ -1,54 +1,35 @@
 const postModel = require('./postModel');
-const userModel = require('../users/userModel');
 
-class postService {
+class PostService {
 
     constructor() {
+
         console.log("In Post Service");
     }
 
-    async createpost(id, body) {
+    async createPost(body) {
         try {
 
-            // return await postModel.create(body).then((postData) => {
-
-            //     userModel.findByIdAndUpdate(id, {post: postData._id}, {new : true})
-
-            const a = await postModel.create(body);
-
-            const b = await userModel.findByIdAndUpdate(id, { post: (a._id) }, { upsert: true });
-
-            console.log(b);
-            return a;
-
-
+            return await postModel.create(body);
 
         }
         catch (error) {
+
             throw error;
+
         }
     }
 
     async showAllPost() {
         try {
+
             return await postModel.find();
 
         }
         catch (error) {
+
             throw error;
-        }
-    }
 
-    async getCommentByPostId(id) {
-
-        try {
-
-            const result = await postModel.findById(id).populate('comment');
-            return result;
-
-        }
-        catch (error) {
-            throw error;
         }
     }
 
@@ -56,28 +37,46 @@ class postService {
 
         try {
 
-            const result = await postModel.findById(id);
-            return result;
+            return await postModel.findById(id);
 
         }
-        catch {
+        catch(error){
+
             throw error;
+            
         }
     }
 
-    async updatePostById(id, body) {
+    async getPostByUser(id) {
+
         try {
+
+            return await postModel.find({user : id})
+        }
+        catch(error) {
+
+            throw error;
+            
+        }
+        
+
+    }
+    async updatePostById(id, body) {
+
+        try {
+
             const postUpdate = {
 
                 title: body.title,
-                description: body.description
+                description: body.description,
+                user:body.user
 
-            };
+            }
 
             return await postModel.findByIdAndUpdate(id, postUpdate, { new: true });
 
         }
-        catch {
+        catch(error) {
             throw error
         }
     }
@@ -87,7 +86,7 @@ class postService {
         try {
             return await postModel.findByIdAndDelete(id);
         }
-        catch {
+        catch(error){
             throw error;
         }
     }

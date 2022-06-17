@@ -1,45 +1,66 @@
+// import user Model
 const userModel = require('./userModel');
-const post = require('../posts/postModel');
 
-class userService {
+// create user service class
+class UserService {
 
     constructor() {
 
         console.log("In User Service");
     }
 
+    // create user
     async createUser(body) {
+
         try {
 
             return await userModel.create(body);
 
         }
-        catch {
+        catch(error) {
             throw error;
         }
+    
     };
+
+    // show all users
     async showAllUsers() {
+
         try {
+
             return await userModel.find();
 
         }
-        catch {
+        catch(error) {
+
             throw error;
+
         }
+
     }
 
+    // get a user by id
     async getUserById(id) {
 
         try {
+
             return await userModel.findById(id);
+
         }
-        catch {
-            throw error
+
+        catch(error) {
+
+            throw error;
+
         }
+
     }
 
+    // update user by id
     async updateUserById(id, body) {
+
         try {
+
             const userUpdate = {
 
                 name: body.name,
@@ -47,38 +68,29 @@ class userService {
 
             };
 
-            const a = await userModel.findByIdAndUpdate(id, userUpdate, { new: true });
-            console.log(a);
-            return a;
-
-        }
-        catch {
-            throw error
-        }
-    }
-
-    async getPostByUserId(id) {
-        try {
-
-            const result = await userModel.findById(id).populate('post');
-            return result;
+            return await userModel.findByIdAndUpdate(id, userUpdate, { new: true });
 
         }
 
-        catch {
+        catch(error) {
+
             throw error;
+
         }
-    }
+    }   
 
-
-
+    // delete user by id
     async deleteUserById(id) {
+
         try {
+
             return await userModel.findByIdAndDelete(id);
+
         }
         catch (error) {
+
             throw error;
         }
     }
 }
-module.exports = new userService();
+module.exports = new UserService();

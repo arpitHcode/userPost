@@ -1,6 +1,6 @@
 const postService = require('./postService');
 
-class postController {
+class PostController {
 
     constructor() {
 
@@ -10,17 +10,19 @@ class postController {
     async createPost(req, res) {
 
         try {
-            const id = req.params.id;
-            const body = {
+            
+             const body = {
 
                 title: req.body.title,
-                description: req.body.description
+                description: req.body.description,
+                user: req.body.user
 
             }
 
-            const result = await postService.createpost(id, body);
+            const result = await postService.createPost(body);
             res.status(201).send(result);
         }
+
         catch (error) {
             res.status(404).send(error);
 
@@ -28,12 +30,15 @@ class postController {
     }
 
     async showAllPost(req, res) {
+
         try {
+
             const result = await postService.showAllPost();
             res.status(201).send(result);
 
         }
         catch (error) {
+
             throw error;
         }
     }
@@ -52,26 +57,28 @@ class postController {
         }
     }
 
+    async getPostByUser(req,res) {
 
-
-    async getCommentById(req, res) {
         try {
+
             const id = req.params.id;
-            const result = await postService.getCommentByPostId(id);
+            const result = await postService.getPostByUser(id);
             res.status(201).send(result);
+
         }
         catch (error) {
             res.status(404).send(error);
         }
+        
     }
-
     async updatePostById(req, res) {
         try {
             const id = req.params.id;
             const postUpdate = {
 
                 title: req.body.title,
-                description: req.body.description
+                description: req.body.description,
+                user: req.body.user
 
             }
 
@@ -95,4 +102,4 @@ class postController {
         }
     }
 }
-module.exports = new postController();
+module.exports = new PostController();

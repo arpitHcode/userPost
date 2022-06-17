@@ -1,6 +1,7 @@
+// import user service
 const userService = require('./userService');
 
-class userController {
+class UserController {
 
     constructor() {
 
@@ -20,19 +21,26 @@ class userController {
             const result = await userService.createUser(body);
             res.status(201).send(result);
         }
+
         catch (error) {
+
             res.status(404).send(error);
+
         }
     }
 
     async showAllUsers(req, res) {
+
         try {
+
             const result = await userService.showAllUsers();
             res.status(201).send(result);
 
         }
         catch (error) {
+
             res.status(404).send(error);
+
         }
     }
 
@@ -41,24 +49,13 @@ class userController {
         try {
 
             const id = req.params.id;
-            console.log(id);
             const result = await userService.getUserById(id);
             res.status(201).send(result);
 
         }
-        catch (error) {
-            res.status(404).send(error);
-        }
-    }
 
-
-    async getPostByUserId(req, res) {
-        try {
-            const id = req.params.id;
-            const result = await userService.getPostByUserId(id);
-            res.status(201).send(result);
-        }
         catch (error) {
+
             res.status(404).send(error);
         }
     }
@@ -79,6 +76,7 @@ class userController {
             res.status(201).send(result);
 
         }
+
         catch (error) {
             res.status(404).send(error);
         }
@@ -86,13 +84,17 @@ class userController {
 
     async deleteUserById(req, res) {
         try {
+
             const id = req.params.id;
             const result = await userService.deleteUserById(id);
             res.status(201).send(result);
+
         }
         catch (error) {
+
             res.status(404).send(error);
+
         }
     }
 }
-module.exports = new userController();
+module.exports = new UserController();
